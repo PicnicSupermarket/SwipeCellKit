@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
    s.social_media_url = 'https://twitter.com/mkurabi'
    s.author = 'Mohammad Kurabi'
 
-   s.source = { :git => 'https://github.com/SwipeCellKit/SwipeCellKit.git', :tag => s.version }
+   s.source = { :git => 'https://github.com/PicnicSupermarket/SwipeCellKit.git', :tag => s.version }
    s.source_files = 'Source/*.swift'
 
    s.swift_version = '4.2'
 
-   s.ios.deployment_target = '9.0'
+   s.ios.deployment_target = '8.0'
 end
