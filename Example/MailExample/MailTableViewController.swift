@@ -247,10 +247,17 @@ class MailCell: SwipeTableViewCell {
         contentView.addSubview(indicatorView)
         
         let size: CGFloat = 12
-        indicatorView.widthAnchor.constraint(equalToConstant: size).isActive = true
-        indicatorView.heightAnchor.constraint(equalTo: indicatorView.widthAnchor).isActive = true
-        indicatorView.centerXAnchor.constraint(equalTo: fromLabel.leftAnchor, constant: -16).isActive = true
-        indicatorView.centerYAnchor.constraint(equalTo: fromLabel.centerYAnchor).isActive = true
+        if #available(iOS 9.0, *) {
+            indicatorView.widthAnchor.constraint(equalToConstant: size).isActive = true
+            indicatorView.heightAnchor.constraint(equalTo: indicatorView.widthAnchor).isActive = true
+            indicatorView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 12).isActive = true
+            indicatorView.centerYAnchor.constraint(equalTo: fromLabel.centerYAnchor).isActive = true
+        } else {
+            NSLayoutConstraint(item: indicatorView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: size).isActive = true
+            NSLayoutConstraint(item: indicatorView, attribute: .height, relatedBy: .equal, toItem: indicatorView, attribute: .width, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: fromLabel, attribute: .left, multiplier: 1, constant: -16).isActive = true
+            NSLayoutConstraint(item: indicatorView, attribute: .centerY, relatedBy: .equal, toItem: fromLabel, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        }
     }
     
     func setUnread(_ unread: Bool, animated: Bool) {

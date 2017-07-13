@@ -156,20 +156,35 @@ class SwipeActionsView: UIView {
             button.maximumImageHeight = maximumImageHeight
             button.verticalAlignment = options.buttonVerticalAlignment
             button.shouldHighlight = action.hasBackgroundColor
-            
-            wrapperView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            wrapperView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            
-            let topConstraint = wrapperView.topAnchor.constraint(equalTo: topAnchor, constant: contentEdgeInsets.top)
+
+            let leftConstraint: NSLayoutConstraint
+            let rightConstraint: NSLayoutConstraint
+            let topConstraint: NSLayoutConstraint
+            let bottomConstraint: NSLayoutConstraint
+            let heightConstraint: NSLayoutConstraint
+            if #available(iOS 9.0, *) {
+                leftConstraint = wrapperView.leftAnchor.constraint(equalTo: leftAnchor)
+                rightConstraint = wrapperView.rightAnchor.constraint(equalTo: rightAnchor)
+                topConstraint = wrapperView.topAnchor.constraint(equalTo: topAnchor, constant: contentEdgeInsets.top)
+                bottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1 * contentEdgeInsets.bottom)
+                heightConstraint = wrapperView.heightAnchor.constraint(greaterThanOrEqualToConstant: button.intrinsicContentSize.height)
+            } else {
+                leftConstraint = NSLayoutConstraint(item: wrapperView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0)
+                rightConstraint = NSLayoutConstraint(item: wrapperView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
+                topConstraint = NSLayoutConstraint(item: wrapperView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: contentEdgeInsets.top)
+                bottomConstraint = NSLayoutConstraint(item: wrapperView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -1 * contentEdgeInsets.bottom)
+                heightConstraint = NSLayoutConstraint(item: wrapperView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: button.intrinsicContentSize.height)
+            }
+
+            leftConstraint.isActive = true
+            rightConstraint.isActive = true
             topConstraint.priority = contentEdgeInsets.top == 0 ? .required : .defaultHigh
             topConstraint.isActive = true
             
-            let bottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1 * contentEdgeInsets.bottom)
             bottomConstraint.priority = contentEdgeInsets.bottom == 0 ? .required : .defaultHigh
             bottomConstraint.isActive = true
             
             if contentEdgeInsets != .zero {
-                let heightConstraint = wrapperView.heightAnchor.constraint(greaterThanOrEqualToConstant: button.intrinsicContentSize.height)
                 heightConstraint.priority = .required
                 heightConstraint.isActive = true
             }
