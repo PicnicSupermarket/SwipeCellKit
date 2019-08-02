@@ -2,6 +2,39 @@
 
 `SwipeCellKit` adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.0](https://github.com/jerkoch/SwipeCellKit/releases/tag/2.6.0)
+
+#### Added
+
+- SwipeCellKit is now using Swift 5
+
+---
+
+## [2.5.4](https://github.com/jerkoch/SwipeCellKit/releases/tag/2.5.4)
+
+#### Fixed
+
+- Fixed Carthage when building with Xcode 10.2 (#297)
+
+---
+
+## [2.5.2](https://github.com/jerkoch/SwipeCellKit/releases/tag/2.5.2)
+
+#### Fixed
+
+- Added support for Xcode 10.2 (#279, #283)
+- Compatibility with applications using Swift 5 (see Mail App Example)
+
+---
+
+## [2.5.1](https://github.com/jerkoch/SwipeCellKit/releases/tag/2.5.1)
+
+#### Fixed
+
+- Cells do not hide correctly when also using non-`SwipeCollectionViewCell` cells in `UICollectionView`. (#265)
+
+---
+
 ## [2.5.0](https://github.com/jerkoch/SwipeCellKit/releases/tag/2.5.0)
 
 #### Fixed
